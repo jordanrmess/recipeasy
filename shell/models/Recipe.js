@@ -40,4 +40,4 @@ function arrayLimit(val) {
 }
 
 var Recipe = mongoose.model('Recipe',recipeSchema); 
-module.exports = { Recipe }; 
+module.exports = Recipe; 
