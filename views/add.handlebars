@@ -76,16 +76,7 @@
             } else {
                 diff = diff.toLowerCase();
             }
-            if ($('#name').val() == undefined ||
-                $('#mealType').val() == undefined ||
-                $('#username').val() == undefined ||
-                diff == undefined ||
-                $('#ingredients').val() == undefined ||
-                $('#time').val() == undefined||
-                $('#servSize').val() == undefined) {
-                alert('please enter the correct information and resubmit');
-                res.render('add');
-            }
+            
             var arr = JSON.stringify($('#ingredients').val().split(','));
             $.ajax({
                 type: 'POST',

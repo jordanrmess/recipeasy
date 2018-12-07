@@ -22,8 +22,7 @@ var recipeSchema = new mongoose.Schema({
     },
     ingredients: [String],
     time: {
-        type: Number,
-        required: true
+        formType: Number,
     },
     servSize: {
         type: Number,
