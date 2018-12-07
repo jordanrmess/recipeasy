@@ -117,15 +117,18 @@ app.get('/random', function (req, res) {
         var randIndex = Math.floor(Math.random() * keys.length)
         var recipe = recipes[randIndex]
         if (err) throw err;
+        console.log(recipe.name);
         var url = '/recipe/' + recipe.name;
-        console.log(url);
+
         res.render('random', {
             name: recipe.name,
-            url: url.replace(' ', '%20')
+            url: replaceAll(url,' ','%20')
         })
     });
 });
-
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
 app.get('/easy', function (req, res) {
 
 
