@@ -87,7 +87,14 @@ app.get('/api/ing/:item', function (req, res) {
     Recipe.find({}, function (err, recipes) {
         if (err) throw err;
         var r = _.filter(recipes, function (ele) {
-            return JSON.parse(ele.ingredients).includes(item);
+            var ings;
+            try {
+                ings = JSON.parse(ele.ingredients);
+
+            } catch (e) {
+                ings = ele.ingredients;
+            }
+            return ings.includes(item);
         });
         names = _.pluck(r, "name");
         res.send(JSON.stringify(names));
@@ -153,9 +160,9 @@ app.get('/recipe/:entry', function (req, res) {
             var ings;
             try {
                 ings = JSON.parse(r.ingredients);
-                
+
             } catch (e) {
-                ings = r.ingredients; 
+                ings = r.ingredients;
             }
             res.render('recipe', {
                 name: r.name,
