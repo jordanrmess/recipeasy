@@ -37,11 +37,11 @@
 
 
     <script>
-
+        
         $('#showIng').click(function () {
             var elements = $();
             var item = $('#ing').val();
-
+            console.log(item);
             var response = '';
             $.ajax({
                 type: "GET",
@@ -53,9 +53,7 @@
             });
             var list = JSON.parse(response);
             if (list.length == 0 || list == undefined) {
-                $('<h3>')
-                    .html('Sorry, not recipes available with  ' + item)
-                    .appendTo('#subtitle')
+                $('#subtitle').html('<h3>Sorry, no recipes available with ' + item + '. Why don\'t you <a href=\"/add\">add</a> one?</h3>')
             } else {
                 $('<h3>')
                     .html('With ' + item + ', you can make: ')

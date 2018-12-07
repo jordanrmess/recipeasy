@@ -46,7 +46,7 @@ mongoose.connection.on('error', function (err) {
 
 /**POST ENDPOINT: Add a new recipe */
 
-app.post('/recipe', function (req, res) {
+app.post('/api/recipe', function (req, res) {
     /**Recipe Object */
     var recipe = new Recipe({
         name: req.body.name,
@@ -150,13 +150,20 @@ app.get('/recipe/:entry', function (req, res) {
         if (r == undefined) {
             res.render('error');
         } else {
+            var ings;
+            try {
+                ings = JSON.parse(r.ingredients);
+                
+            } catch (e) {
+                ings = r.ingredients; 
+            }
             res.render('recipe', {
                 name: r.name,
                 author: r.author,
                 diff: r.diffLevel,
                 time: r.time,
                 serv: r.servSize,
-                ingredients: JSON.parse(r.ingredients)
+                ingredients: ings
             });
         }
 

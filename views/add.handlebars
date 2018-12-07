@@ -38,7 +38,7 @@
                             <option>hard</option>
                         </select>
                     </div>
-                    <div id="time" class="form-group">
+                    <div class="form-group">
                         <label for="formGroupExampleInput">How long does this take to cook?</label>
                         <input name="time" type="text" class="form-control" id="time" placeholder="ex. 30 minutes">
                     </div>
@@ -80,7 +80,7 @@
             var arr = JSON.stringify($('#ingredients').val().split(','));
             $.ajax({
                 type: 'POST',
-                url: '/recipe',
+                url: '/api/recipe',
                 data: {
                     name: $('#name').val(),
                     meal: $('#mealType').val().toLowerCase(),

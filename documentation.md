@@ -1,15 +1,15 @@
 
 # PROJECT NAME
-
+Recipeasy
 ---
 
-Name: 
+Name: Jordan Mess
 
-Date: 
+Date: 12/7/18
 
-Project Topic: 
+Project Topic: A crowdsourced recipe application allowing users to interact and segment different recipe data
 
-URL: 
+URL: https://mysterious-inlet-20264.herokuapp.com/
 
 ---
 
@@ -17,24 +17,51 @@ URL:
 ### 1. Data Format and Storage
 
 Data point fields:
-- `Field 1`:     ...       `Type: ...`
-- `Field 2`:     ...       `Type: ...`
-- `Field 3`:     ...       `Type: ...`
-- `Field 4`:     ...       `Type: ...`
-- `Field 5`:     ...       `Type: ...`
+- `Field 1`: name       `Type: String
+- `Field 2`: meal       `Type: String
+- `Field 3`: author     `Type: String
+- `Field 4`: diffLevel       `Type: String
+- `Field 5`: ingredients        `Type: [String]
+- `Field 5`: servSize       `Type: Number
+- `Field 5`: time        `Type: Number
+
+
 
 Schema: 
 ```javascript
-{
-   ...
-}
+ name: {
+        type: String,
+        required: true
+    },
+    meal: {
+        type: String,
+        enum: ['breakfast', 'lunch', 'dinner', 'dessert'],
+        required: true
+    },
+    author: {
+        type: String,
+        required: true
+    },
+    diffLevel: {
+        type: String,
+        enum: ['easy', 'med', 'hard'],
+        required: true
+    },
+    ingredients: [String],
+    time: {
+        formType: Number,
+    },
+    servSize: {
+        type: Number,
+        required: true
+    }
 ```
 
 ### 2. Add New Data
 
-HTML form route: `/...`
+HTML form route: /add
 
-POST endpoint route: `/api/...`
+POST endpoint route: `/api/recipe`
 
 Example Node.js POST request to endpoint: 
 ```javascript
@@ -42,12 +69,18 @@ var request = require("request");
 
 var options = { 
     method: 'POST',
-    url: 'http://localhost:3000/api/...',
+    url: 'http://localhost:3000/api/recipe',
     headers: { 
         'content-type': 'application/x-www-form-urlencoded' 
     },
     form: { 
-       ...
+        name: 'spaghetti',
+        meal: 'dinner',
+        author: 'jordanmess',
+        diffLevel: 'easy',
+        ingredients: ["pasta","sauce"],
+        time: 30,
+        servSize: 4
     } 
 };
 
@@ -60,18 +93,22 @@ request(options, function (error, response, body) {
 
 ### 3. View Data
 
-GET endpoint route: `/api/...`
+GET endpoint route: `/api/recipes`
 
 ### 4. Search Data
 
-Search Field: ...
+Search Field: `name`
 
 ### 5. Navigation Pages
 
 Navigation Filters
-1. name -> `  route  `
-2. ... -> `  ...  `
-3. ... -> `  ...  `
-4. ... -> `  ...  `
-5. ... -> `  ...  `
+1. Add -> `  /add  `
+2. Search by Ingredient -> `  /ing  `
+3. Random Recipe -> `  /random  `
+4. Quick n' Easy -> `  /easy  `
+5. Search by Meal -> `  /meal/:mt  `
+   a) breakfast -> `/meal/breakfast
+   a) lunch -> `/meal/breakfast
+   a) dinner -> `/meal/breakfast
+   a) dessert -> `/meal/breakfast
 
