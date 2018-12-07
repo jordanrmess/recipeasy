@@ -8,8 +8,8 @@ var recipeSchema = new mongoose.Schema({
     },
     meal: {
         type: String,
-        enum: ['breakfast','lunch','dinner','dessert'],
-        required:true
+        enum: ['breakfast', 'lunch', 'dinner', 'dessert'],
+        required: true
     },
     author: {
         type: String,
@@ -17,27 +17,20 @@ var recipeSchema = new mongoose.Schema({
     },
     diffLevel: {
         type: String,
-        enum: ['easy','med','hard'],
+        enum: ['easy', 'med', 'hard'],
         required: true
     },
-    ingredients:{
-        type: [String],
-        required:true,
-        validate: [arrayLimit,'You need at least 1 ingredient']
+    ingredients: [String],
+    time: {
+        type: Number,
+        required: true
     },
-    time:{
-        type:Number,
-        required:true
-    },
-    servSize:{
+    servSize: {
         type: Number,
         required: true
     }
 });
 
-function arrayLimit(val) {
-    return val.length >= 1;
-}
 
-var Recipe = mongoose.model('Recipe',recipeSchema); 
-module.exports = Recipe; 
+var Recipe = mongoose.model('Recipe', recipeSchema);
+module.exports = Recipe;

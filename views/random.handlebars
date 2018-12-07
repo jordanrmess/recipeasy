@@ -1,0 +1,28 @@
+<div class="container">
+
+    <div class="jumbotron">
+        <div class="row spacer">
+            <div class="col">
+                <h1>
+                    How about <span id="recname">{{name}}</span>?
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <a id="succ" class="btn btn-success" href={{url}} role="button">Sounds delish</a>
+            </div>
+            <div class="col-4">
+                <button id="next" type="button" class="btn btn-danger">Thank you,next</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="thingIWant" value={{name}} />
+
+
+    <script>
+        $("#next").click(function () {
+            location.reload();
+        });
+    </script>
+</div>

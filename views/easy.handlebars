@@ -1,0 +1,28 @@
+<div class="container">
+
+    <div class="jumbotron">
+        <div class="row spacer-2">
+            <div class="col">
+                <h1>
+                    In a hurry? We got you!
+                </h1>
+            </div>
+        </div>
+        <div class="row spacer-2">
+            <div class="col">
+                <h3>Here are some quick recipes for those on the move.</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="list-group">
+                    {{#each recipes}}
+                    <a href="/recipe/{{this}}" class="list-group-item list-group-item-action ">
+                        {{this}}
+                    </a> {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

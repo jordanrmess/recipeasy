@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col">
+                <h1>Search by Ingredient</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>Type in some ingredients you have and hit submit</p>
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="row spacer">
+            <div class="col">
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input id="ing" class="form-control" id="ingredients" placeholder="Ex. sugar">
+                    </div>
+                    <button type="button" id="showIng" class="btn btn-dark mb-2">Give me recipes!</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div id="subtitle" class="col">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <ul id="recipe" class="list-group">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        $('#showIng').click(function () {
+            var elements = $();
+            var item = $('#ing').val();
+
+            var response = '';
+            $.ajax({
+                type: "GET",
+                url: "/api/ing/" + item,
+                async: false,
+                success: function (text) {
+                    response = text;
+                }
+            });
+            var list = JSON.parse(response);
+            if (list.length == 0 || list == undefined) {
+                $('<h3>')
+                    .html('Sorry, not recipes available with  ' + item)
+                    .appendTo('#subtitle')
+            } else {
+                $('<h3>')
+                    .html('With ' + item + ', you can make: ')
+                    .appendTo('#subtitle')
+
+                for (var i = 0; i < list.length; i++) {
+                    var url = '/recipe/' + list[i];
+                    $('<li>')
+                        .attr('class', 'list-group-item')
+                        .attr('href', url)
+                        .html(
+                            $('<a>')
+                                .attr('href', url)
+                                .html(list[i])
+                        )
+                        .appendTo('#recipe')
+                }
+            }
+
+        });
+    </script>

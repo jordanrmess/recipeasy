@@ -1,0 +1,108 @@
+<div class="add">
+    <div id="recform">
+        <div class="row">
+            <div class="col">
+                <h1 class="font-weight-bold">Add a Recipe</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>Only rule: must be yummy!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">What's your username?</label>
+                        <input class="form-control" name="author" id="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">What's the name of the recipe? </label>
+                        <input class="form-control" name="name" id="name" placeholder="Ex. Clam Chowder">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select a Meal Type</label>
+                        <select name="meal" class="form-control" id="mealType">
+                            <option>breakfast</option>
+                            <option>lunch</option>
+                            <option>dinner</option>
+                            <option>dessert</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">How hard would you say this recipe is?</label>
+                        <select name="diffLevel" class="form-control" id="diffLevel">
+                            <option>easy</option>
+                            <option>med</option>
+                            <option>hard</option>
+                        </select>
+                    </div>
+                    <div id="time" class="form-group">
+                        <label for="formGroupExampleInput">How long does this take to cook?</label>
+                        <input name="time" type="text" class="form-control" id="time" placeholder="ex. 30 minutes">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">Serving Size</label>
+                        <select name="servSize" multiple class="form-control" id="servSize">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleTextarea">Enter ingredients (separated by comma)</label>
+                        <input name="ingredients" class="form-control" id="ingredients" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="submitbutton btn btn-light" data-toggle="modal" data-target="#myModal">Submit
+                        Recipe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.submitbutton').on('click', function () {
+            diff = $('#diffLevel').val();
+            if (diff == 'Medium') {
+                dif = 'med'
+            } else {
+                diff = diff.toLowerCase();
+            }
+            if ($('#name').val() == undefined ||
+                $('#mealType').val() == undefined ||
+                $('#username').val() == undefined ||
+                diff == undefined ||
+                $('#ingredients').val() == undefined ||
+                $('#time').val() == undefined||
+                $('#servSize').val() == undefined) {
+                alert('please enter the correct information and resubmit');
+                res.render('add');
+            }
+            var arr = JSON.stringify($('#ingredients').val().split(','));
+            $.ajax({
+                type: 'POST',
+                url: '/recipe',
+                data: {
+                    name: $('#name').val(),
+                    meal: $('#mealType').val().toLowerCase(),
+                    author: $('#username').val(),
+                    diffLevel: diff,
+                    ingredients: arr,
+                    time: parseInt($('#time').val()),
+                    servSize: parseInt($('#servSize').val())
+                },
+                success: function (resultData) {
+                    console.log(resultData);
+                }
+            });
+        });
+    </script>
+</div>
